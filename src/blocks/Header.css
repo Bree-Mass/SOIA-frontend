@@ -1,0 +1,39 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  background-color: black;
+  border-bottom: 10px double rgba(255, 255, 255, 0.693);
+  border-bottom-left-radius: 15%;
+  border-bottom-right-radius: 15%;
+  width: 98%;
+  padding-top: 15px;
+}
+
+.header__logo {
+  max-width: 90%;
+  margin: 0 auto;
+  display: block;
+}
+
+.header__links {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  color: white;
+  width: 75%;
+  margin: 20px 0 20px;
+}
+
+.header__link {
+  color: white;
+  text-decoration: none;
+  transition: transform 0.5s;
+}
+
+.header__link:hover {
+  transform: scale(1.2);
+  text-decoration: underline;
+}

@@ -1,0 +1,38 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  background-color: rgb(30, 30, 30);
+  font-family: "Lora Bold", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.25;
+  padding: 0;
+  background: url(../assets/001_faces.png) top repeat-y;
+  background-size: 100% auto;
+}
+
+.page__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  max-width: 1360px;
+  width: calc(100% - 80px);
+  padding: 0 40px;
+  background-color: rgba(0, 0, 0, 0.9);
+  mask: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+}
