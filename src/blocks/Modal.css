@@ -1,0 +1,48 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.4s, opacity 0.4s linear;
+}
+
+.modal_opened {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.4, opacity 0.4 linear;
+}
+
+.modal__content {
+  position: relative;
+  background-color: white;
+  border-radius: 20px;
+  box-sizing: border-box;
+  height: 50%; /* change height and width values later */
+  width: 50%;
+  padding: 15px;
+  /* background: linear-gradient(to right, black, white 2%, white 98%, black),
+    linear-gradient(to bottom, black, white 2%, white 98%, black);
+  background-blend-mode: multiply; */
+  /* border: 6px double black; */
+  /* box-shadow: 0 0 100px white; */
+}
+
+.modal__close-button {
+  background: transparent no-repeat center url(../assets/close_icon_gray.svg);
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  height: 16px;
+  width: 16px;
+  border: none;
+  padding: 0;
+}

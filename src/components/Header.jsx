@@ -18,9 +18,14 @@ const Header = () => {
         <Link to="/store" className="header__link">
           Store
         </Link>
-        <Link to="/contact" className="header__link">
+        <button
+          id="contact-modal"
+          className="header__link"
+          type="button"
+          onClick={() => console.log("click")}
+        >
           Contact
-        </Link>
+        </button>
       </div>
     </header>
   );

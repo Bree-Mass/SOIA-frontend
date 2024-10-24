@@ -31,9 +31,12 @@
   color: white;
   text-decoration: none;
   transition: transform 0.5s;
+  background: none;
+  border: none;
 }
 
 .header__link:hover {
   transform: scale(1.2);
   text-decoration: underline;
+  cursor: pointer;
 }
