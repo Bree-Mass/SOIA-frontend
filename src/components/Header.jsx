@@ -1,8 +1,13 @@
+import React from "react";
 import { Link } from "react-router-dom";
+import { ModalsContext } from "../contexts/ModalsContext";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import headerLogo from "../assets/header-logo.png";
 import "../blocks/Header.css";
 
-const Header = () => {
+const Header = ({ isLoggedIn }) => {
+  const modalContext = React.useContext(ModalsContext);
+  const currentUser = React.useContext(CurrentUserContext);
   return (
     <header className="header">
       <Link to="/">
@@ -15,6 +20,20 @@ const Header = () => {
         <Link to="/book2" className="header__link">
           Book 2
         </Link>
+        {isLoggedIn ? (
+          <Link to="/profile" className="header__link">
+            My Profile
+          </Link>
+        ) : (
+          <button
+            id="login-modal"
+            className="header__link"
+            type="button"
+            onClick={modalContext.openModals}
+          >
+            Log In
+          </button>
+        )}
         <Link to="/store" className="header__link">
           Store
         </Link>
@@ -22,7 +41,7 @@ const Header = () => {
           id="contact-modal"
           className="header__link"
           type="button"
-          onClick={() => console.log("click")}
+          onClick={modalContext.openModals}
         >
           Contact
         </button>

@@ -1,0 +1,55 @@
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+}
+
+.modal__label {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.modal__error {
+  color: rgba(225, 77, 0, 1);
+}
+
+.modal__validation {
+  position: absolute;
+  left: 25%;
+  visibility: hidden;
+}
+
+.modal__validation_visible {
+  visibility: visible;
+}
+
+.modal__input {
+  color: inherit;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  border-color: inherit;
+  height: 24px;
+  margin-top: 8px;
+}
+
+.modal__submit-button {
+  position: absolute;
+  bottom: 18%;
+  cursor: pointer;
+  color: white;
+  background-color: rgba(0, 0, 0, 1);
+  height: 36px;
+  width: fit-content;
+  padding: 0 16px;
+  border: none;
+}
+
+.modal__submit-button:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal__submit-button:disabled {
+  background-color: rgba(0, 0, 0, 0.3);
+}

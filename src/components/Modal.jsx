@@ -1,14 +1,25 @@
+import React from "react";
+import { ModalsContext } from "../contexts/ModalsContext";
 import "../blocks/Modal.css";
 
-const Modal = ({ children, titleText }) => {
+const Modal = ({ children, titleText, isOpen }) => {
+  const modalContext = React.useContext(ModalsContext);
+
   return (
-    <div className="modal modal_opened">
-      <div className="modal__content">
-        <h2 className="modal__title">{titleText}</h2>
+    <div
+      className={`modal ${isOpen ? `modal_opened` : ""}`}
+      id={modalContext.activeModal}
+    >
+      <div
+        className={`modal__content modal__content_${modalContext.activeModal}`}
+      >
+        <h2 className={`modal__title modal__title_${modalContext.activeModal}`}>
+          {titleText}
+        </h2>
         <button
           className="modal__close-button"
           type="button"
-          onClick={() => console.log("close")}
+          onClick={modalContext.closeModals}
         />
         {children}
       </div>
