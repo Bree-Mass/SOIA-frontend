@@ -1,16 +1,16 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./Header";
-import Main from "./Main";
-import Book from "./Book";
-import Profile from "./Profile";
-import Store from "./Store";
-import Footer from "./Footer";
-import ContactModal from "./ContactModal"; // remove this later because you will use this as Higher Order Component
-import LoginModal from "./LoginModal";
-import { ModalsContext } from "../contexts/ModalsContext";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import "../blocks/App.css";
+import Header from "../Header/Header";
+import Main from "../Main/Main";
+import Book from "../Book/Book";
+import Profile from "../Profile/Profile";
+import Store from "../Store/Store";
+import Footer from "../Footer/Footer";
+import ContactModal from "../ContactModal/ContactModal"; // remove this later because you will use this as Higher Order Component
+import LoginModal from "../LoginModal/LoginModal";
+import { ModalsContext } from "../../contexts/ModalsContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import "./App.css";
 
 function App() {
   //// USE STATES ////

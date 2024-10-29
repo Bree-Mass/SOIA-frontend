@@ -1,5 +1,5 @@
-import Modal from "./Modal";
-import "../blocks/ModalWithForm.css";
+import Modal from "../Modal/Modal";
+import "./ModalWithForm.css";
 
 function ModalWithForm({
   children,

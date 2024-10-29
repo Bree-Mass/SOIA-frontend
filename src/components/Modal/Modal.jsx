@@ -1,6 +1,6 @@
 import React from "react";
-import { ModalsContext } from "../contexts/ModalsContext";
-import "../blocks/Modal.css";
+import { ModalsContext } from "../../contexts/ModalsContext";
+import "./Modal.css";
 
 const Modal = ({ children, titleText, isOpen }) => {
   const modalContext = React.useContext(ModalsContext);

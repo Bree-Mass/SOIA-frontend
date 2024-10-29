@@ -1,0 +1,22 @@
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  color: white;
+  width: 75%;
+  margin: 20px 0 20px;
+}
+
+.navigation__link {
+  color: white;
+  text-decoration: none;
+  transition: transform 0.5s;
+  background: none;
+  border: none;
+}
+
+.navigation__link:hover {
+  transform: scale(1.2);
+  text-decoration: underline;
+  cursor: pointer;
+}
