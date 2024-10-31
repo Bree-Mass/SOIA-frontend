@@ -15,6 +15,7 @@ function ContactModal({ titleText, isOpen, isLoading, handleSubmit }) {
       isOpen={isOpen}
       isButtonDisabled={isButtonDisabled}
       handleSubmit={handleSubmit}
+      values={values}
     >
       <label
         className={`modal__label ${errors.email ? "modal__error" : ""}`}
@@ -60,8 +61,8 @@ function ContactModal({ titleText, isOpen, isLoading, handleSubmit }) {
         />
         <span
           className={`modal__validation ${
-            errors.message ? "modal__validation_visible" : ""
-          } modal__validation_register-avatar`}
+            errors.email ? "modal__validation_visible" : ""
+          }`}
         >
           {errors.message}
         </span>

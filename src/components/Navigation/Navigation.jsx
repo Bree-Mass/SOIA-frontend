@@ -32,14 +32,12 @@ const Navigation = ({ isLoggedIn }) => {
       <Link to="/store" className="navigation__link">
         Store
       </Link>
-      <button
-        id="contact-modal"
-        className="navigation__link"
-        type="button"
-        onClick={modalContext.openModals}
-      >
+      <Link to="/about" className="navigation__link">
+        Author
+      </Link>
+      <Link to="/contact" className="navigation__link">
         Contact
-      </button>
+      </Link>
     </div>
   );
 };
