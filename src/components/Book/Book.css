@@ -6,3 +6,18 @@
   height: fit-content;
   min-height: 75vh;
 }
+
+.book__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book__page {
+  max-width: 50%;
+}
+
+.book__button {
+  width: 100px;
+  height: 50px;
+}

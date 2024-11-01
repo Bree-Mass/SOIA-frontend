@@ -16,6 +16,7 @@ import { signup, signin, authorizeToken } from "../../utils/auth";
 import { ModalsContext } from "../../contexts/ModalsContext";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { getPatreonPosts } from "../../utils/patreonApi";
+import { getPages } from "../../utils/googleApi";
 import "./App.css";
 
 function App() {
@@ -25,7 +26,12 @@ function App() {
   const [activeModal, setActiveModal] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState({});
   const [userToken, setUserToken] = React.useState("");
+  const [userBookIndex, setUserBookIndex] = React.useState(0);
+  const [bookPages, setBookPages] = React.useState([]);
+
   const [patreonPosts, setPatreonPosts] = React.useState({});
+
+  //// HANDLE BOOK ////
 
   //// DEFAULT SUBMIT ////
 
@@ -146,6 +152,8 @@ function App() {
     }
   }, [activeModal]);
 
+  //// ON INITIAL PAGE LOAD USE EFFECTS ////
+
   React.useEffect(() => {
     getPatreonPosts().then((data) => {
       const extractedPosts = data.map((post) => ({
@@ -157,8 +165,16 @@ function App() {
       const sortedPosts = extractedPosts.sort((a, b) => {
         return b.is_public - a.is_public;
       });
-      console.log(sortedPosts);
+
       setPatreonPosts(sortedPosts);
+    });
+  }, []);
+
+  React.useEffect(() => {
+    getPages().then((imageUrls) => {
+      if (imageUrls && imageUrls.length > 0) {
+        setBookPages(imageUrls);
+      }
     });
   }, []);
 
@@ -174,7 +190,16 @@ function App() {
                 <Header isLoggedIn={isLoggedIn} />
                 <Routes>
                   <Route path="/" element={<Main />} />
-                  <Route path="/book1" element={<Book bookNumber="1" />} />
+                  <Route
+                    path="/book1"
+                    element={
+                      <Book
+                        bookNumber="1"
+                        bookPages={bookPages}
+                        userBookIndex={userBookIndex}
+                      />
+                    }
+                  />
                   <Route
                     path="/book2"
                     element={
