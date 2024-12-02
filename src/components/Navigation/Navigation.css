@@ -10,6 +10,7 @@
 .navigation__link {
   color: white;
   text-decoration: none;
+  text-align: center;
   transition: transform 0.5s;
   background: none;
   border: none;
@@ -18,5 +19,40 @@
 .navigation__link:hover {
   transform: scale(1.2);
   text-decoration: underline;
+  text-underline-offset: 5px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+  .navigation {
+    width: 90%;
+    justify-content: space-around;
+  }
+  .navigation__link {
+    text-align: center;
+    font-size: 3vw;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .navigation {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates 3 equal-width columns */
+    grid-template-rows: repeat(2, 1fr); /* Creates 2 equal-height rows */
+    row-gap: 30px;
+    column-gap: 10px;
+  }
+  .navigation__link {
+    font-size: 4vw;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .navigation {
+    width: 95%;
+  }
+
+  .navigation__link {
+    font-size: 5vw;
+  }
 }

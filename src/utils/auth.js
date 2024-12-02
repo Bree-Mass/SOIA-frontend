@@ -1,13 +1,4 @@
-const checkResponse = (res) => {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Error: ${res.status}`);
-};
-
-const request = (url, options) => {
-  return fetch(url, options).then(checkResponse);
-};
+import { request } from "./api";
 
 const signup = ({ name, email, password }) => {
   return request(`http://localhost:3001/signup`, {

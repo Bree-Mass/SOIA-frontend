@@ -1,0 +1,90 @@
+.comment {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  gap: 10px;
+  width: calc(100% - 100px);
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  padding: 25px 50px 50px;
+  margin: 15px 0;
+  background-color: black;
+  -webkit-mask: linear-gradient(to right, transparent, black 50px),
+    linear-gradient(to left, transparent, black 50px);
+  mask: linear-gradient(to right, transparent, black 50px),
+    linear-gradient(to left, transparent, black 50px);
+  -webkit-mask-composite: intersect;
+  mask-composite: intersect;
+}
+
+.comment__user {
+  font-size: 28px;
+  margin: 0;
+}
+
+.comment__page {
+  margin: 0;
+}
+
+.comment__body {
+  margin: 5px 0 0;
+  text-indent: 2em;
+  word-break: break-word;
+}
+
+.comment__buttons {
+  position: absolute;
+  display: flex;
+  gap: 30px;
+  right: 40px;
+  bottom: 10px;
+}
+
+.comment__button {
+  cursor: pointer;
+  height: 35px;
+  width: 35px;
+  background-color: transparent;
+  background-size: contain;
+  border: none;
+}
+
+.comment__button_delete {
+  background-image: url("../../assets/delete-icon.svg");
+}
+
+.comment__button_edit {
+  background-image: url("../../assets/edit-icon.svg");
+}
+
+@media screen and (max-width: 551px) {
+  .comment {
+    width: calc(100% - 20px);
+    padding: 25px 10px 50px;
+    margin: 10px 0;
+    -webkit-mask: linear-gradient(to right, transparent, black 0px),
+      linear-gradient(to left, transparent, black 0px);
+    mask: linear-gradient(to right, transparent, black 0px),
+      linear-gradient(to left, transparent, black 0px);
+    -webkit-mask-composite: intersect;
+    mask-composite: intersect;
+  }
+
+  .comment__user {
+    font-size: 18px;
+  }
+
+  .comment__body {
+    font-size: 14px;
+  }
+
+  .comment__buttons {
+    right: 15px;
+  }
+  .comment__button_delete {
+    order: 1;
+  }
+  .comment__button_edit {
+    order: 2;
+  }
+}

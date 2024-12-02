@@ -1,0 +1,62 @@
+.pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+}
+.pagination__wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  min-width: 270px;
+  margin: 15px 0 15px;
+}
+
+.pagination__form_input {
+  width: 50px;
+}
+
+.pagination__button {
+  cursor: pointer;
+}
+
+.pagination__button_selection {
+  width: 50px;
+}
+
+.pagination__button:disabled {
+  cursor: unset;
+  color: white;
+  background-color: black;
+  border-color: white;
+}
+
+.pagination__form {
+  display: flex;
+  gap: 5px;
+}
+
+.pagination__page-numbers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  row-gap: 15px;
+}
+
+@media screen and (max-width: 440px) {
+  .pagination__page-numbers {
+    width: 270px;
+  }
+  .pagination__page-numbers button:nth-child(1) {
+    margin-right: auto;
+    margin-left: 25px;
+    order: 1;
+  }
+  .pagination__page-numbers button:nth-child(7) {
+    margin-right: 25px;
+    margin-left: auto;
+    order: 1;
+  }
+}

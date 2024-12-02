@@ -13,15 +13,19 @@ const Modal = ({ children, titleText, isOpen }) => {
       <div
         className={`modal__content modal__content_${modalContext.activeModal}`}
       >
-        <h2 className={`modal__title modal__title_${modalContext.activeModal}`}>
-          {titleText}
-        </h2>
-        <button
-          className="modal__close-button"
-          type="button"
-          onClick={modalContext.closeModals}
-        />
-        {children}
+        <div className="modal__content-wrapper">
+          <h2
+            className={`modal__title modal__title_${modalContext.activeModal}`}
+          >
+            {titleText}
+          </h2>
+          <button
+            className="modal__close-button"
+            type="button"
+            onClick={modalContext.closeModals}
+          />
+          {children}
+        </div>
       </div>
     </div>
   );

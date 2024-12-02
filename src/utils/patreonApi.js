@@ -7,8 +7,8 @@ const getPatreonPosts = () => {
       return res.json();
     })
     .then((posts) => {
-      if (posts && posts.data) {
-        return posts.data;
+      if (posts) {
+        return posts;
       }
     })
     .catch((err) => {

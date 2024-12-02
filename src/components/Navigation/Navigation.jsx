@@ -1,11 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ModalsContext } from "../../contexts/ModalsContext";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import "./Navigation.css";
 
 const Navigation = ({ isLoggedIn }) => {
-  const currentUser = React.useContext(CurrentUserContext);
   const modalContext = React.useContext(ModalsContext);
   return (
     <div className="navigation">
@@ -17,7 +15,7 @@ const Navigation = ({ isLoggedIn }) => {
       </Link>
       {isLoggedIn ? (
         <Link to="/profile" className="navigation__link">
-          My Profile
+          Profile
         </Link>
       ) : (
         <button

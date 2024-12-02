@@ -1,9 +1,12 @@
 import React from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useFormAndValidation from "../../hooks/useFormAndValidation";
+import { ModalsContext } from "../../contexts/ModalsContext";
+
 import "./RegisterModal.css";
 
 function RegisterModal({ titleText, isOpen, isLoading, handleSubmit }) {
+  const modalContext = React.useContext(ModalsContext);
   const { values, handleChange, errors, isButtonDisabled } =
     useFormAndValidation(isOpen);
 
@@ -17,12 +20,11 @@ function RegisterModal({ titleText, isOpen, isLoading, handleSubmit }) {
       values={values}
     >
       <label
-        className={`modal__label ${errors.email ? "modal__error" : ""}`}
+        className={`form__label ${errors.email ? "form__error" : ""}`}
         htmlFor="register-email"
       >
-        Email*
         <input
-          className="modal__input"
+          className="form__input"
           type="email"
           name="email"
           id="register-email"
@@ -34,20 +36,19 @@ function RegisterModal({ titleText, isOpen, isLoading, handleSubmit }) {
           required
         />
         <span
-          className={`modal__validation ${
-            errors.email ? "modal__validation_visible" : ""
+          className={`form__validation ${
+            errors.email ? "form__validation_visible" : ""
           }`}
         >
           {errors.email}
         </span>
       </label>
       <label
-        className={`modal__label ${errors.password ? "modal__error" : ""}`}
+        className={`form__label ${errors.password ? "form__error" : ""}`}
         htmlFor="register-password"
       >
-        Password*
         <input
-          className="modal__input"
+          className="form__input"
           type="password"
           name="password"
           id="register-password"
@@ -57,38 +58,55 @@ function RegisterModal({ titleText, isOpen, isLoading, handleSubmit }) {
           required
         />
         <span
-          className={`modal__validation ${
-            errors.password ? "modal__validation_visible" : ""
-          } modal__validation_register-password`}
+          className={`form__validation ${
+            errors.password ? "form__validation_visible" : ""
+          } form__validation_register-password`}
         >
           {errors.password}
         </span>
       </label>
       <label
-        className={`modal__label ${errors.name ? "modal__error" : ""}`}
+        className={`form__label ${errors.name ? "form__error" : ""}`}
         htmlFor="register-name"
       >
-        Name*
         <input
-          className="modal__input modal__input_name"
+          className="form__input form__input_name"
           type="text"
           name="name"
           id="register-name"
           value={values.name || ""}
           placeholder="Name"
           minLength="1"
-          maxLength="30"
+          maxLength="16"
           onChange={handleChange}
           required
         />
         <span
-          className={`modal__validation ${
-            errors.name ? "modal__validation_visible" : ""
+          className={`form__validation ${
+            errors.name ? "form__validation_visible" : ""
           }`}
         >
-          ({errors.name})
+          {errors.name}
         </span>
       </label>
+      <div className="form__buttons">
+        <button
+          className="form__submit-button"
+          type="submit"
+          disabled={isButtonDisabled}
+        >
+          {isLoading ? "Registering..." : "Register"}
+        </button>
+        or
+        <button
+          className="form__submit-button"
+          type="button"
+          id="login-modal"
+          onClick={modalContext.openModals}
+        >
+          Login
+        </button>
+      </div>
     </ModalWithForm>
   );
 }

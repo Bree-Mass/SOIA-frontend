@@ -1,13 +1,11 @@
-import { getPatreonPosts } from "../../utils/patreonApi";
 import "./About.css";
 
 const About = () => {
   return (
     <div className="about">
-      About The Author Here
-      <button className="about__button" onClick={getPatreonPosts}>
-        Check API
-      </button>
+      You're on the Author page.
+      <br />
+      This is soon to be developed.
     </div>
   );
 };

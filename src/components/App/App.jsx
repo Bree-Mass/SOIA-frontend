@@ -9,10 +9,18 @@ import Store from "../Store/Store";
 import Contact from "../Contact/Contact";
 import Footer from "../Footer/Footer";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import ContactModal from "../ContactModal/ContactModal";
+import CommentModal from "../CommentModal/CommentModal";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import { signup, signin, authorizeToken } from "../../utils/auth";
+import {
+  patchUser,
+  createComment,
+  patchComment,
+  deleteComment,
+  getUserComments,
+  getPageComments,
+} from "../../utils/backendApi";
 import { ModalsContext } from "../../contexts/ModalsContext";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { getPatreonPosts } from "../../utils/patreonApi";
@@ -28,16 +36,16 @@ function App() {
   const [userToken, setUserToken] = React.useState("");
   const [userBookIndex, setUserBookIndex] = React.useState(0);
   const [bookPages, setBookPages] = React.useState([]);
-
-  const [patreonPosts, setPatreonPosts] = React.useState({});
-
-  //// HANDLE BOOK ////
+  const [patreonPosts, setPatreonPosts] = React.useState([]);
+  const [userComments, setUserComments] = React.useState([]);
+  const [pageComments, setPageComments] = React.useState([]);
+  const [commentToEdit, setCommentToEdit] = React.useState(null);
 
   //// DEFAULT SUBMIT ////
 
   function handleSubmit(request) {
     setIsLoading(true);
-    request()
+    return request()
       .then(closeModals)
       .catch(console.error)
       .finally(() => {
@@ -47,15 +55,16 @@ function App() {
       });
   }
 
-  // SUBMISSION FIELDS //
+  //// API REQUEST HANDLERS ////
 
+  // User Handlers //
   const handleRegistration = ({ email, password, name }) => {
     const requestRegistration = () => {
       return signup({ email, password, name }).then(() =>
         handleLogin({ email, password })
       );
     };
-    handleSubmit(requestRegistration);
+    return handleSubmit(requestRegistration);
   };
 
   const handleLogin = ({ email, password }) => {
@@ -70,53 +79,178 @@ function App() {
           return authorizeToken(token);
         })
         .then((user) => {
+          console.log(user);
+
           setCurrentUser(user.data);
+          setUserBookIndex(user.data.page);
           setIsLoggedIn(true);
         });
     };
-    handleSubmit(requestLogin);
+    return handleSubmit(requestLogin);
   };
 
-  const handleEditProfile = ({ name }) => {
+  const handleLogout = () => {
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    setUserToken("");
+  };
+
+  const handleEditProfile = (data) => {
+    const filteredData = Object.fromEntries(
+      Object.entries(data).filter(
+        ([key, value]) => value !== undefined && value !== currentUser[key]
+      )
+    );
     const requestEditProfile = () => {
-      // return patchUser({ name }, userToken).then((user) => {
-      //   setCurrentUser(user.data);
-      // });
+      return patchUser(filteredData, userToken).then((user) => {
+        setCurrentUser(user.data);
+        if (filteredData.name) {
+          handleGetPageComments(userBookIndex + 1);
+        }
+      });
     };
-    handleSubmit(requestEditProfile);
+
+    return handleSubmit(requestEditProfile);
   };
-
-  const handleEditComment = ({ name }) => {
-    const requestEditComment = () => {
-      // return patchUser({ name}, userToken).then((user) => {
-      //   setCurrentUser(user.data);
-      // });
-    };
-    handleSubmit(requestEditComment);
-  };
-
-  const handleContact = ({ email, message }) => {
-    const requestContact = () => {
-      console.log("Submit Contact!");
-      // return the contact method
-    };
-    handleSubmit(requestContact);
-  };
-
-  //// CHECK IF USER HAS TOKEN ON PAGE VISIT ////
-  React.useEffect(() => {
-    const token = localStorage.getItem("jwt");
-
-    if (token) {
-      authorizeToken(token)
-        .then((res) => {
-          setCurrentUser(res.data);
-          setUserToken(token);
-          setIsLoggedIn(true);
+  // Comment Handlers //
+  const handleAddComment = ({ comment }) => {
+    const requestAddComment = () => {
+      return createComment(
+        { name: currentUser.name, comment, page: userBookIndex + 1 },
+        userToken
+      )
+        .then((post) => {
+          setPageComments([...pageComments, post]);
+          setUserComments([...userComments, post]);
         })
-        .catch(console.error);
+
+        .catch((error) => {
+          console.error("Error adding comment:", error);
+        });
+    };
+
+    return handleSubmit(requestAddComment);
+  };
+
+  const handleEditComment = ({ comment }) => {
+    const requestEditComment = () => {
+      return patchComment({ comment, _id: commentToEdit._id }, userToken)
+        .then((comment) => {
+          const updateComments = (commentsArray, updatedComment) => {
+            return commentsArray.map((comment) =>
+              comment._id === updatedComment._id
+                ? { ...comment, comment: updatedComment.comment }
+                : comment
+            );
+          };
+          setPageComments((prevPageComments) =>
+            updateComments(prevPageComments, comment)
+          );
+          setUserComments((prevUserComments) =>
+            updateComments(prevUserComments, comment)
+          );
+        })
+        .catch((error) => {
+          console.error("Error editing comment:", error);
+        });
+    };
+    return handleSubmit(requestEditComment);
+  };
+
+  const handleDeleteComment = (_id) => {
+    const requestDeleteComment = () => {
+      return deleteComment(_id, userToken)
+        .then(() => {
+          setPageComments((prevComments) =>
+            prevComments.filter((removedCom) => removedCom._id !== _id)
+          );
+          setUserComments((prevComments) =>
+            prevComments.filter((removedCom) => removedCom._id !== _id)
+          );
+        })
+        .catch((error) => {
+          console.error("Error deleteing comment:", error);
+        });
+    };
+    return handleSubmit(requestDeleteComment);
+  };
+
+  const handleGetUserComments = () => {
+    const requestGetUserComments = () => {
+      return getUserComments(userToken)
+        .then((comments) => {
+          setUserComments(comments.data);
+        })
+        .catch((error) => {
+          console.error("Error getting comments:", error);
+        });
+    };
+    return handleSubmit(requestGetUserComments);
+  };
+
+  const handleGetPageComments = (page) => {
+    const requestGetPageComments = () => {
+      return getPageComments(page)
+        .then((comments) => {
+          setPageComments(comments.data);
+        })
+        .catch((error) => {
+          console.error("Error getting comments:", error);
+        });
+    };
+    return handleSubmit(requestGetPageComments);
+  };
+
+  // 3rd Party Handlers //
+
+  const handleGetPatreonPosts = () => {
+    const requestGetPatreonPosts = () => {
+      return getPatreonPosts()
+        .then((data) => {
+          const extractedPosts = data.map((post) => ({
+            content: `${post.attributes.content}`,
+            title: post.attributes.title,
+            url: post.attributes.url,
+            is_public: post.attributes.is_public,
+          }));
+          const sortedPosts = extractedPosts.sort((a, b) => {
+            return b.is_public - a.is_public;
+          });
+
+          setPatreonPosts(sortedPosts);
+        })
+        .catch((error) => {
+          console.error("Error getting Patreon posts:", error);
+        });
+    };
+
+    return handleSubmit(requestGetPatreonPosts);
+  };
+
+  const handleGetBookPages = () => {
+    const requestGetBookPages = () => {
+      return getPages()
+        .then((imageUrls) => {
+          if (imageUrls && imageUrls.length > 0) {
+            setBookPages(imageUrls);
+          }
+        })
+        .catch((error) => {
+          console.error("Error getting Patreon posts:", error);
+        });
+    };
+
+    return handleSubmit(requestGetBookPages);
+  };
+
+  //// HANDLE BOOKS ////
+
+  const handlePageChange = (newPageIndex) => {
+    setUserBookIndex(newPageIndex);
+    if (isLoggedIn) {
+      return handleEditProfile({ page: newPageIndex });
     }
-  }, []);
+  };
 
   //// MODALS ////
   const openModals = (evt) => {
@@ -125,12 +259,16 @@ function App() {
 
   const closeModals = () => {
     setActiveModal(null);
+    if (commentToEdit) {
+      setCommentToEdit(null);
+    }
+
     // set timeout so card wont visually change before the modal fades away
     setTimeout(() => {}, 400);
   };
 
+  // sets/removes event listeners whenever a modal is opened/closed
   React.useEffect(() => {
-    // sets/removes event listeners whenever a modal is opened/closed
     const handleOutsideClick = (evt) => {
       if (evt.target.id === activeModal) {
         closeModals();
@@ -152,31 +290,34 @@ function App() {
     }
   }, [activeModal]);
 
-  //// ON INITIAL PAGE LOAD USE EFFECTS ////
+  //// USE EFFECTS ////
 
+  // Check if user has token //
   React.useEffect(() => {
-    getPatreonPosts().then((data) => {
-      const extractedPosts = data.map((post) => ({
-        content: post.attributes.content,
-        title: post.attributes.title,
-        url: post.attributes.url,
-        is_public: post.attributes.is_public,
-      }));
-      const sortedPosts = extractedPosts.sort((a, b) => {
-        return b.is_public - a.is_public;
-      });
-
-      setPatreonPosts(sortedPosts);
-    });
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      authorizeToken(token)
+        .then((res) => {
+          setCurrentUser(res.data);
+          setUserBookIndex(res.data.page);
+          setUserToken(token);
+          setIsLoggedIn(true);
+        })
+        .catch(console.error);
+    }
   }, []);
 
   React.useEffect(() => {
-    getPages().then((imageUrls) => {
-      if (imageUrls && imageUrls.length > 0) {
-        setBookPages(imageUrls);
-      }
-    });
-  }, []);
+    if (isLoggedIn) handleGetUserComments();
+  }, [isLoggedIn]);
+
+  React.useEffect(() => handleGetPatreonPosts, []);
+
+  React.useEffect(() => handleGetBookPages, []);
+
+  React.useEffect(() => {
+    handleGetPageComments(userBookIndex + 1);
+  }, [userBookIndex]);
 
   return (
     <>
@@ -185,49 +326,65 @@ function App() {
           <ModalsContext.Provider
             value={{ activeModal, openModals, closeModals }}
           >
-            <CurrentUserContext.Provider value={{ currentUser }}>
+            <CurrentUserContext.Provider value={currentUser}>
               <div className="page__content">
                 <Header isLoggedIn={isLoggedIn} />
-                <Routes>
-                  <Route path="/" element={<Main />} />
-                  <Route
-                    path="/book1"
-                    element={
-                      <Book
-                        bookNumber="1"
-                        bookPages={bookPages}
-                        userBookIndex={userBookIndex}
-                      />
-                    }
-                  />
-                  <Route
-                    path="/book2"
-                    element={
-                      <Book bookNumber="2" patreonPosts={patreonPosts} />
-                    }
-                  />
 
-                  <Route
-                    path="/profile"
-                    element={
-                      <ProtectedRoute isLoggedIn={isLoggedIn}>
-                        <Profile setIsLoggedIn={setIsLoggedIn} />
-                      </ProtectedRoute>
-                    }
-                  />
+                <div className="page__content_main">
+                  <Routes>
+                    <Route path="/" element={<Main />} />
+                    <Route
+                      path="/book1"
+                      element={
+                        <Book
+                          pageComments={pageComments}
+                          bookPages={bookPages}
+                          userBookIndex={userBookIndex}
+                          handlePageChange={handlePageChange}
+                          handleDelete={handleDeleteComment}
+                          handleCommentToEdit={setCommentToEdit}
+                        />
+                      }
+                    />
+                    <Route
+                      path="/book2"
+                      element={<Book patreonPosts={patreonPosts} />}
+                    />
 
-                  <Route path="/store" element={<Store />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/contact" element={<Contact />} />
-                </Routes>
+                    <Route
+                      path="/profile/*"
+                      element={
+                        <ProtectedRoute isLoggedIn={isLoggedIn}>
+                          <Profile
+                            userComments={userComments}
+                            handleLogout={handleLogout}
+                            isLoading={isLoading}
+                            handleSubmit={handleEditProfile}
+                            handleDelete={handleDeleteComment}
+                            handleCommentToEdit={setCommentToEdit}
+                          />
+                        </ProtectedRoute>
+                      }
+                    />
 
+                    <Route path="/store" element={<Store />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
+                  </Routes>
+                </div>
                 <Footer />
               </div>
-              <ContactModal
-                titleText="Contact"
-                isOpen={activeModal === "contact-modal"}
+
+              <CommentModal
+                titleText="Comment"
+                isOpen={
+                  activeModal === "comment-modal" ||
+                  activeModal === "comment-modal_edit"
+                }
                 isLoading={isLoading}
-                handleSubmit={handleContact}
+                handleAddComment={handleAddComment}
+                handleEditComment={handleEditComment}
+                commentToEdit={commentToEdit}
               />
               <LoginModal
                 titleText="Login"

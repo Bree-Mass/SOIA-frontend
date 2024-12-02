@@ -10,7 +10,7 @@ function useFormAndValidation(isOpen) {
     const { name, value, validationMessage, maxLength } = evt.target;
     const shortenedError = validationMessage.slice(0, 43);
 
-    if (name === "message" && value.length >= maxLength) {
+    if (name === "comment" && value.length >= maxLength) {
       setErrors((prevErrors) => ({
         ...prevErrors,
         [name]: `Message cannot exceed ${maxLength} characters.`,
@@ -51,11 +51,13 @@ function useFormAndValidation(isOpen) {
 
   return {
     values,
+    setValues,
     handleChange,
     errors,
     isValid,
     resetForm,
     isButtonDisabled,
+    setIsButtonDisabled,
   };
 }
 
