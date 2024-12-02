@@ -1,6 +1,6 @@
 import "./Preloader.css";
 
-const Preloader = ({}) => {
+const Preloader = () => {
   return (
     <div className="preloader">
       <div className="preloader__image"></div>

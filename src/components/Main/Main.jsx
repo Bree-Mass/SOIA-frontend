@@ -4,7 +4,7 @@ import "./Main.css";
 const Main = () => {
   return (
     <main className="main">
-      <img className="main__book-cover" src={bookCover} />
+      <img className="main__book-cover" alt="book cover" src={bookCover} />
     </main>
   );
 };

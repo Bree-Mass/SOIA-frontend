@@ -3,7 +3,6 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Sidebar from "../Sidebar/Sidebar";
 import Comment from "../Comment/Comment";
 import Form from "../Form/Form";
-import Preloader from "../Preloader/Preloader";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import useFormAndValidation from "../../hooks/useFormAndValidation";
 import "./Profile.css";

@@ -1,11 +1,7 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import "./Sidebar.css";
 
 const Sidebar = ({ handleLogout }) => {
-  const currentUser = React.useContext(CurrentUserContext);
-
   return (
     <div className="sidebar">
       <Link to="info" className="sidebar__link">

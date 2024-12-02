@@ -65,10 +65,16 @@
   border: none;
   border-radius: 5px;
   height: 45px;
+  margin: 20px 0;
+  border: double 5px black;
+  transform: scale(1);
+  transition: transform 0.5s;
 }
 
 .book__load-button:hover {
   background-color: rgba(255, 255, 255, 0.7);
+  transform: scale(1.1);
+  transition: transform 0.5s;
 }
 
 .book__comments-list {

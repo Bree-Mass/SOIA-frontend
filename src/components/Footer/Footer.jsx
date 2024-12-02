@@ -14,7 +14,7 @@ const Footer = () => {
 
   React.useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 500) {
+      if (window.scrollY > 700) {
         setIsButtonVisible(true);
       } else {
         setIsButtonVisible(false);
@@ -30,15 +30,27 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      <p className="footer__copyright">
-        &copy; 2024 State of it All. All Rights Reserved.
-      </p>
       <div className="footer__links">
-        <a className="footer__link" href="" />
-        <a className="footer__link" href="" />
-        <a className="footer__link" href="" />
-        <a className="footer__link" href="" />
+        <a
+          className="footer__link footer__link_bluesky"
+          href="https://bsky.app/profile/stateofitall.bsky.social"
+        />
+        <a
+          className="footer__link footer__link_x-twitter"
+          href="https://x.com/STATEofitALL"
+        />
+        <a
+          className="footer__link footer__link_instagram"
+          href="https://www.instagram.com/state_of_it_all/"
+        />
+        <a
+          className="footer__link footer__link_patreon"
+          href="https://www.patreon.com/c/StateofitAll/posts"
+        />
       </div>
+      <p className="footer__copyright">
+        &copy; 2024 State of it All. <br /> All Rights Reserved.
+      </p>
 
       <button
         className={`footer__navigate-button  ${

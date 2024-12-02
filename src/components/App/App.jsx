@@ -79,8 +79,6 @@ function App() {
           return authorizeToken(token);
         })
         .then((user) => {
-          console.log(user);
-
           setCurrentUser(user.data);
           setUserBookIndex(user.data.page);
           setIsLoggedIn(true);
@@ -288,7 +286,7 @@ function App() {
         document.removeEventListener("keydown", handleEscClose);
       };
     }
-  }, [activeModal]);
+  }, [activeModal, closeModals]);
 
   //// USE EFFECTS ////
 
