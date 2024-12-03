@@ -89,5 +89,12 @@
   background-color: #2e626f;
 }
 
-@media screen and ((max-width: 768px)) {
+@media screen and ((max-width: 552px)) {
+  .footer__links {
+    width: 280px;
+  }
+  .footer__link {
+    width: 50px;
+    height: 50px;
+  }
 }

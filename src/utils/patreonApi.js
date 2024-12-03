@@ -6,7 +6,7 @@ const getPatreonPosts = () => {
       return posts;
     })
     .catch((err) => {
-      console.error(`Failed to fetch posts from Patreon API: ${err}`);
+      console.error(`An error occurred: ${err}`);
     });
 };
 

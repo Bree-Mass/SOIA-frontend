@@ -6,7 +6,7 @@ const getPages = () => {
       return data.urls;
     })
     .catch((err) => {
-      console.error(`Failed to fetch pages from Google API: ${err}`);
+      console.error(`An error occurred: ${err}`);
     });
 };
 

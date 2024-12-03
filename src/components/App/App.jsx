@@ -309,9 +309,13 @@ function App() {
     if (isLoggedIn) handleGetUserComments();
   }, [isLoggedIn]);
 
-  React.useEffect(() => handleGetPatreonPosts, []);
+  React.useEffect(() => {
+    handleGetPatreonPosts();
+  }, []);
 
-  React.useEffect(() => handleGetBookPages, []);
+  React.useEffect(() => {
+    handleGetBookPages();
+  }, []);
 
   React.useEffect(() => {
     handleGetPageComments(userBookIndex + 1);
