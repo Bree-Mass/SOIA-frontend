@@ -25,7 +25,7 @@
 
 ### Prerequisites
 
-- **Node.js** (version >= 14)
+- **Node.js**
 - **npm**
 - [**SOIA Back-End**](https://github.com/Bree-Mass/soia_backend/blob/create-backend/README.md)
 
@@ -34,7 +34,7 @@
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/soia_frontend.git
+   git clone https://github.com/Bree-Mass/soia_frontend.git
 
    ```
 
