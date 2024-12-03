@@ -5,6 +5,7 @@ import { ModalsContext } from "../../contexts/ModalsContext";
 import "./Comment.css";
 
 const Comment = ({
+  isLoggedIn,
   comment,
   commentName,
   commentPage,
@@ -26,7 +27,7 @@ const Comment = ({
         {commentPage && <p className="comment__page">Page {comment.page}</p>}
         <p className="comment__body">{comment.comment}</p>
       </div>
-      {comment.user === currentUser._id && (
+      {isLoggedIn && comment.user === currentUser._id && (
         <div className="comment__buttons">
           <button
             className="comment__button comment__button_edit"

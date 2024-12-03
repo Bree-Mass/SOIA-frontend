@@ -339,6 +339,7 @@ function App() {
                       path="/book1"
                       element={
                         <Book
+                          isLoggedIn={isLoggedIn}
                           pageComments={pageComments}
                           bookPages={bookPages}
                           userBookIndex={userBookIndex}

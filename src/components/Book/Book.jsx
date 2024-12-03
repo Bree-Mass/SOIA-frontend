@@ -7,6 +7,7 @@ import { ModalsContext } from "../../contexts/ModalsContext";
 import "./Book.css";
 
 const Book = ({
+  isLoggedIn,
   patreonPosts,
   pageComments,
   bookPages,
@@ -76,14 +77,16 @@ const Book = ({
               onPageChange={handlePageChange}
               isModalOpen={modalContext.activeModal}
             />
-            <button
-              className="book__add-comment_button"
-              type="button"
-              id="comment-modal"
-              onClick={modalContext.openModals}
-            >
-              Add Comment
-            </button>
+            {isLoggedIn && (
+              <button
+                className="book__add-comment_button"
+                type="button"
+                id="comment-modal"
+                onClick={modalContext.openModals}
+              >
+                Add Comment
+              </button>
+            )}
           </div>
           {pageComments && pageComments.length > 0 && (
             <>
@@ -91,6 +94,7 @@ const Book = ({
                 {pageComments.slice(0, commentsToLoad).map((comment, index) => (
                   <Comment
                     key={index}
+                    isLoggedIn={isLoggedIn}
                     comment={comment}
                     commentName={true}
                     handleDelete={handleDelete}

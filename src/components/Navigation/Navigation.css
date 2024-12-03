@@ -40,7 +40,7 @@
     grid-template-columns: repeat(3, 1fr); /* Creates 3 equal-width columns */
     grid-template-rows: repeat(2, 1fr); /* Creates 2 equal-height rows */
     row-gap: 30px;
-    column-gap: 10px;
+    column-gap: 5px;
   }
   .navigation__link {
     font-size: 4vw;
@@ -49,10 +49,10 @@
 
 @media screen and (max-width: 426px) {
   .navigation {
-    width: 95%;
+    width: 94%;
   }
 
   .navigation__link {
-    font-size: 5vw;
+    font-size: 4vw;
   }
 }
