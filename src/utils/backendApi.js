@@ -1,7 +1,7 @@
 import { request, debounce } from "./api";
 
 const patchUser = debounce((data, token) => {
-  return request(`http://localhost:3001/users/me`, {
+  return request(`/users/me`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -12,7 +12,7 @@ const patchUser = debounce((data, token) => {
 }, 500);
 
 const createComment = ({ name, comment, page }, token) => {
-  return request(`http://localhost:3001/comments`, {
+  return request(`/comments`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -23,7 +23,7 @@ const createComment = ({ name, comment, page }, token) => {
 };
 
 const patchComment = ({ comment, _id }, token) => {
-  return request(`http://localhost:3001/comments/${_id}`, {
+  return request(`/comments/${_id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -34,7 +34,7 @@ const patchComment = ({ comment, _id }, token) => {
 };
 
 const deleteComment = (_id, token) => {
-  return request(`http://localhost:3001/comments/${_id}`, {
+  return request(`/comments/${_id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const deleteComment = (_id, token) => {
 };
 
 const getUserComments = debounce((token) => {
-  return request(`http://localhost:3001/comments/user/me`, {
+  return request(`/comments/user/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const getUserComments = debounce((token) => {
 }, 500);
 
 const getPageComments = debounce((page) => {
-  return request(`http://localhost:3001/comments/page/${page}`, {
+  return request(`/comments/page/${page}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

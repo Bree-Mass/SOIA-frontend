@@ -1,18 +1,12 @@
+import { request } from "./api";
+
 const getPatreonPosts = () => {
-  return fetch("http://localhost:3001/api/patreon")
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(`Error: ${res.status} ${res.statusText}`);
-      }
-      return res.json();
-    })
+  return request("/api/patreon")
     .then((posts) => {
-      if (posts) {
-        return posts;
-      }
+      return posts;
     })
     .catch((err) => {
-      console.error(`An error occurred: ${err}`);
+      console.error(`Failed to fetch posts from Patreon API: ${err}`);
     });
 };
 

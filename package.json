@@ -1,5 +1,6 @@
 {
   "name": "soia_frontend",
+  "homepage": "https://soia.home.kg",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,7 +9,7 @@
     "build": "vite build",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./dist/* breemassingill@whattowear.home.kg:/home/breemassingill/frontend"
+    "deploy": "npm run build && scp -r ./dist/* breemassingill@soia.home.kg:/home/breemassingill/soia_frontend"
   },
   "dependencies": {
     "html-react-parser": "^5.1.18",

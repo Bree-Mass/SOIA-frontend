@@ -1,3 +1,8 @@
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.soia.home.kg"
+    : "http://localhost:3001";
+
 const checkResponse = (res) => {
   if (res.ok) {
     return res.json();
@@ -5,8 +10,8 @@ const checkResponse = (res) => {
   return Promise.reject(`Error: ${res.status}`);
 };
 
-const request = (url, options) => {
-  return fetch(url, options).then(checkResponse);
+const request = (path, options) => {
+  return fetch(`${baseUrl}${path}`, options).then(checkResponse);
 };
 
 function debounce(func, delay) {

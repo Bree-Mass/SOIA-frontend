@@ -1,7 +1,7 @@
 import { request } from "./api";
 
 const signup = ({ name, email, password }) => {
-  return request(`http://localhost:3001/signup`, {
+  return request(`/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -11,7 +11,7 @@ const signup = ({ name, email, password }) => {
 };
 
 const signin = ({ email, password }) => {
-  return request(`http://localhost:3001/signin`, {
+  return request(`/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +21,7 @@ const signin = ({ email, password }) => {
 };
 
 const authorizeToken = (token) => {
-  return request(`http://localhost:3001/users/me`, {
+  return request(`/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
