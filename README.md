@@ -35,7 +35,6 @@
 
    ```bash
    git clone https://github.com/Bree-Mass/soia_frontend.git
-
    ```
 
 2. Navigate to the project directory:
