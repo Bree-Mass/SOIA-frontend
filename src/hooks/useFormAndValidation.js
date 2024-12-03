@@ -26,7 +26,6 @@ function useFormAndValidation(isOpen) {
       ...prevValues,
       [name]: value,
     }));
-    // setErrors({ ...errors, [name]: shortenedError });
     setIsValid(evt.target.closest("form").checkValidity());
   };
 
