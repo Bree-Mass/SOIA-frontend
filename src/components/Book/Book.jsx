@@ -57,7 +57,7 @@ const Book = ({
   }, [patreonPosts, pageComments]);
 
   return (
-    <div className="book">
+    <section className="book">
       {bookPages && (
         <>
           <div className="book__container">
@@ -132,7 +132,7 @@ const Book = ({
         ) : (
           <Preloader />
         ))}
-    </div>
+    </section>
   );
 };
 

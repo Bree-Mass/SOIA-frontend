@@ -6,7 +6,7 @@ import "./Navigation.css";
 const Navigation = ({ isLoggedIn }) => {
   const modalContext = React.useContext(ModalsContext);
   return (
-    <div className="navigation">
+    <nav className="navigation">
       <Link to="/book1" className="navigation__link">
         Book 1
       </Link>
@@ -36,7 +36,7 @@ const Navigation = ({ isLoggedIn }) => {
       <Link to="/contact" className="navigation__link">
         Contact
       </Link>
-    </div>
+    </nav>
   );
 };
 

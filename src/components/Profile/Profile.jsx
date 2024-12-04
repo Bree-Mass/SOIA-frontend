@@ -56,7 +56,7 @@ const Profile = ({
   }, [values]);
 
   return (
-    <div className="profile">
+    <section className="profile">
       <Sidebar handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Navigate to="info" replace />} />
@@ -185,7 +185,7 @@ const Profile = ({
           }
         />
       </Routes>
-    </div>
+    </section>
   );
 };
 

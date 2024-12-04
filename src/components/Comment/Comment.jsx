@@ -22,7 +22,7 @@ const Comment = ({
 
   return (
     <li className="comment">
-      <div className="comment-wrapper">
+      <div className="comment__wrapper">
         {commentName && <h3 className="comment__user">{comment.name}</h3>}
         {commentPage && <p className="comment__page">Page {comment.page}</p>}
         <p className="comment__body">{comment.comment}</p>

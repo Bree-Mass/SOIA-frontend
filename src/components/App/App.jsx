@@ -132,8 +132,8 @@ function App() {
 
   const handleEditComment = ({ comment }) => {
     const requestEditComment = () => {
-      return patchComment({ comment, _id: commentToEdit._id }, userToken)
-        .then((comment) => {
+      return patchComment({ comment, _id: commentToEdit._id }, userToken).then(
+        (comment) => {
           const updateComments = (commentsArray, updatedComment) => {
             return commentsArray.map((comment) =>
               comment._id === updatedComment._id
@@ -147,10 +147,8 @@ function App() {
           setUserComments((prevUserComments) =>
             updateComments(prevUserComments, comment)
           );
-        })
-        .catch((error) => {
-          console.error("Error editing comment:", error);
-        });
+        }
+      );
     };
     return handleSubmit(requestEditComment);
   };
@@ -322,90 +320,88 @@ function App() {
   }, [userBookIndex]);
 
   return (
-    <>
-      <BrowserRouter>
-        <div className="page">
-          <ModalsContext.Provider
-            value={{ activeModal, openModals, closeModals }}
-          >
-            <CurrentUserContext.Provider value={currentUser}>
-              <div className="page__content">
-                <Header isLoggedIn={isLoggedIn} />
+    <BrowserRouter>
+      <div className="page">
+        <ModalsContext.Provider
+          value={{ activeModal, openModals, closeModals }}
+        >
+          <CurrentUserContext.Provider value={currentUser}>
+            <div className="page__content">
+              <Header isLoggedIn={isLoggedIn} />
 
-                <div className="page__content_main">
-                  <Routes>
-                    <Route path="/" element={<Main />} />
-                    <Route
-                      path="/book1"
-                      element={
-                        <Book
-                          isLoggedIn={isLoggedIn}
-                          pageComments={pageComments}
-                          bookPages={bookPages}
-                          userBookIndex={userBookIndex}
-                          handlePageChange={handlePageChange}
+              <div className="page__content_main">
+                <Routes>
+                  <Route path="/" element={<Main />} />
+                  <Route
+                    path="/book1"
+                    element={
+                      <Book
+                        isLoggedIn={isLoggedIn}
+                        pageComments={pageComments}
+                        bookPages={bookPages}
+                        userBookIndex={userBookIndex}
+                        handlePageChange={handlePageChange}
+                        handleDelete={handleDeleteComment}
+                        handleCommentToEdit={setCommentToEdit}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/book2"
+                    element={<Book patreonPosts={patreonPosts} />}
+                  />
+
+                  <Route
+                    path="/profile/*"
+                    element={
+                      <ProtectedRoute isLoggedIn={isLoggedIn}>
+                        <Profile
+                          userComments={userComments}
+                          handleLogout={handleLogout}
+                          isLoading={isLoading}
+                          handleSubmit={handleEditProfile}
                           handleDelete={handleDeleteComment}
                           handleCommentToEdit={setCommentToEdit}
                         />
-                      }
-                    />
-                    <Route
-                      path="/book2"
-                      element={<Book patreonPosts={patreonPosts} />}
-                    />
+                      </ProtectedRoute>
+                    }
+                  />
 
-                    <Route
-                      path="/profile/*"
-                      element={
-                        <ProtectedRoute isLoggedIn={isLoggedIn}>
-                          <Profile
-                            userComments={userComments}
-                            handleLogout={handleLogout}
-                            isLoading={isLoading}
-                            handleSubmit={handleEditProfile}
-                            handleDelete={handleDeleteComment}
-                            handleCommentToEdit={setCommentToEdit}
-                          />
-                        </ProtectedRoute>
-                      }
-                    />
-
-                    <Route path="/store" element={<Store />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/contact" element={<Contact />} />
-                  </Routes>
-                </div>
-                <Footer />
+                  <Route path="/store" element={<Store />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
               </div>
+              <Footer />
+            </div>
 
-              <CommentModal
-                titleText="Comment"
-                isOpen={
-                  activeModal === "comment-modal" ||
-                  activeModal === "comment-modal_edit"
-                }
-                isLoading={isLoading}
-                handleAddComment={handleAddComment}
-                handleEditComment={handleEditComment}
-                commentToEdit={commentToEdit}
-              />
-              <LoginModal
-                titleText="Login"
-                isOpen={activeModal === "login-modal"}
-                isLoading={isLoading}
-                handleSubmit={handleLogin}
-              />
-              <RegisterModal
-                titleText="Register"
-                isOpen={activeModal === "register-modal"}
-                isLoading={isLoading}
-                handleSubmit={handleRegistration}
-              />
-            </CurrentUserContext.Provider>
-          </ModalsContext.Provider>
-        </div>
-      </BrowserRouter>
-    </>
+            <CommentModal
+              titleText="Comment"
+              isOpen={
+                activeModal === "comment-modal" ||
+                activeModal === "comment-modal_edit"
+              }
+              isLoading={isLoading}
+              handleAddComment={handleAddComment}
+              handleEditComment={handleEditComment}
+              commentToEdit={commentToEdit}
+            />
+            <LoginModal
+              titleText="Login"
+              isOpen={activeModal === "login-modal"}
+              isLoading={isLoading}
+              handleSubmit={handleLogin}
+            />
+            <RegisterModal
+              titleText="Register"
+              isOpen={activeModal === "register-modal"}
+              isLoading={isLoading}
+              handleSubmit={handleRegistration}
+            />
+          </CurrentUserContext.Provider>
+        </ModalsContext.Provider>
+      </div>
+    </BrowserRouter>
   );
 }
 

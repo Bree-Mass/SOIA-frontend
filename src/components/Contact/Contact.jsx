@@ -2,11 +2,10 @@ import "./Contact.css";
 
 const Contact = () => {
   return (
-    <div className="contact">
-      You&#39;re on the Contact page.
-      <br />
-      This is soon to be developed.
-    </div>
+    <section className="contact">
+      <p>You&#39;re on the Contact page.</p>
+      <p>This is soon to be developed.</p>
+    </section>
   );
 };
 
