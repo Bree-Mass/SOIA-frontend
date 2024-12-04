@@ -116,15 +116,10 @@ function App() {
       return createComment(
         { name: currentUser.name, comment, page: userBookIndex + 1 },
         userToken
-      )
-        .then((post) => {
-          setPageComments([...pageComments, post]);
-          setUserComments([...userComments, post]);
-        })
-
-        .catch((error) => {
-          console.error("Error adding comment:", error);
-        });
+      ).then((post) => {
+        setPageComments([...pageComments, post]);
+        setUserComments([...userComments, post]);
+      });
     };
 
     return handleSubmit(requestAddComment);
@@ -155,44 +150,32 @@ function App() {
 
   const handleDeleteComment = (_id) => {
     const requestDeleteComment = () => {
-      return deleteComment(_id, userToken)
-        .then(() => {
-          setPageComments((prevComments) =>
-            prevComments.filter((removedCom) => removedCom._id !== _id)
-          );
-          setUserComments((prevComments) =>
-            prevComments.filter((removedCom) => removedCom._id !== _id)
-          );
-        })
-        .catch((error) => {
-          console.error("Error deleteing comment:", error);
-        });
+      return deleteComment(_id, userToken).then(() => {
+        setPageComments((prevComments) =>
+          prevComments.filter((removedCom) => removedCom._id !== _id)
+        );
+        setUserComments((prevComments) =>
+          prevComments.filter((removedCom) => removedCom._id !== _id)
+        );
+      });
     };
     return handleSubmit(requestDeleteComment);
   };
 
   const handleGetUserComments = () => {
     const requestGetUserComments = () => {
-      return getUserComments(userToken)
-        .then((comments) => {
-          setUserComments(comments.data);
-        })
-        .catch((error) => {
-          console.error("Error getting comments:", error);
-        });
+      return getUserComments(userToken).then((comments) => {
+        setUserComments(comments.data);
+      });
     };
     return handleSubmit(requestGetUserComments);
   };
 
   const handleGetPageComments = (page) => {
     const requestGetPageComments = () => {
-      return getPageComments(page)
-        .then((comments) => {
-          setPageComments(comments.data);
-        })
-        .catch((error) => {
-          console.error("Error getting comments:", error);
-        });
+      return getPageComments(page).then((comments) => {
+        setPageComments(comments.data);
+      });
     };
     return handleSubmit(requestGetPageComments);
   };
@@ -201,23 +184,19 @@ function App() {
 
   const handleGetPatreonPosts = () => {
     const requestGetPatreonPosts = () => {
-      return getPatreonPosts()
-        .then((data) => {
-          const extractedPosts = data.map((post) => ({
-            content: `${post.attributes.content}`,
-            title: post.attributes.title,
-            url: post.attributes.url,
-            is_public: post.attributes.is_public,
-          }));
-          const sortedPosts = extractedPosts.sort((a, b) => {
-            return b.is_public - a.is_public;
-          });
-
-          setPatreonPosts(sortedPosts);
-        })
-        .catch((error) => {
-          console.error("Error getting Patreon posts:", error);
+      return getPatreonPosts().then((data) => {
+        const extractedPosts = data.map((post) => ({
+          content: `${post.attributes.content}`,
+          title: post.attributes.title,
+          url: post.attributes.url,
+          is_public: post.attributes.is_public,
+        }));
+        const sortedPosts = extractedPosts.sort((a, b) => {
+          return b.is_public - a.is_public;
         });
+
+        setPatreonPosts(sortedPosts);
+      });
     };
 
     return handleSubmit(requestGetPatreonPosts);
@@ -225,15 +204,11 @@ function App() {
 
   const handleGetBookPages = () => {
     const requestGetBookPages = () => {
-      return getPages()
-        .then((imageUrls) => {
-          if (imageUrls && imageUrls.length > 0) {
-            setBookPages(imageUrls);
-          }
-        })
-        .catch((error) => {
-          console.error("Error getting Patreon posts:", error);
-        });
+      return getPages().then((imageUrls) => {
+        if (imageUrls && imageUrls.length > 0) {
+          setBookPages(imageUrls);
+        }
+      });
     };
 
     return handleSubmit(requestGetBookPages);
