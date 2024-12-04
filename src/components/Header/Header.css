@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  /* background-color: black; */
+  padding-top: 15px;
+  mask: linear-gradient(
+    to right,
+    transparent 0%,
+    black 6%,
+    black 94%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(
+    to right,
+    transparent 0%,
+    black 6%,
+    black 94%,
+    transparent 100%
+  );
+}
+
+.header__logo {
+  max-width: 90%;
+  margin: 0 auto;
+  display: block;
+}
+
+@media screen and (max-width: 426px) {
+  .header {
+    border-width: 5px;
+    border-radius: 10%;
+  }
+
+  .navigation__link {
+    font-size: 5.5vw;
+  }
+}

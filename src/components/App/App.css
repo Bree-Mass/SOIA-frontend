@@ -1,0 +1,41 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: rgb(30, 30, 30);
+  font-family: "Lora Bold", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.25;
+  padding: 0;
+  background-image: url(../../assets/001_faces.png),
+    url(../../assets/001_faces.png);
+  background-position: left top, right top;
+  background-repeat: repeat-y;
+  background-size: 49.9% auto;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.76);
+  /* box-shadow is used instead of background-blend-mode due to a quick with
+  background-blend-mode not playing nice with masks in safari browser */
+}
+
+.page__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  max-width: 1360px;
+  color: white;
+  background-color: transparent;
+}
+
+.page__content_main {
+  width: 100%;
+  padding: 0;
+}
+
+@media screen and (max-width: 551px) {
+  .page__content {
+    width: 100%;
+    padding: 0;
+  }
+}

@@ -1,0 +1,51 @@
+.profile {
+  display: flex;
+  background-color: black;
+  -webkit-mask: linear-gradient(to top, transparent, black 30px),
+    linear-gradient(to bottom, transparent, black 30px),
+    linear-gradient(to right, transparent, black 30px),
+    linear-gradient(to left, transparent, black 30px);
+  mask: linear-gradient(to top, transparent, black 30px),
+    linear-gradient(to bottom, transparent, black 30px),
+    linear-gradient(to right, transparent, black 30px),
+    linear-gradient(to left, transparent, black 30px);
+  -webkit-mask-composite: intersect;
+  mask-composite: intersect;
+  padding: 40px 60px 60px;
+  min-height: 340px;
+}
+
+.profile__comments-wrapper {
+  width: 100%;
+}
+
+.profile__comments-title {
+  margin-left: 30px;
+}
+
+.form__input_profile {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 767px) {
+  .profile {
+    flex-direction: column;
+    padding: 40px 20px 60px;
+  }
+}
+
+@media screen and (max-width: 551px) {
+  .profile {
+    -webkit-mask: linear-gradient(to top, transparent, black 30px),
+      linear-gradient(to bottom, transparent, black 30px),
+      linear-gradient(to right, transparent, black 0px),
+      linear-gradient(to left, transparent, black 0px);
+    mask: linear-gradient(to top, transparent, black 30px),
+      linear-gradient(to bottom, transparent, black 30px),
+      linear-gradient(to right, transparent, black 0px),
+      linear-gradient(to left, transparent, black 0px);
+    -webkit-mask-composite: intersect;
+    mask-composite: intersect;
+    padding: 40px 10px 60px;
+  }
+}

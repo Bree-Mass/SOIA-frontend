@@ -1,0 +1,57 @@
+.main {
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  height: fit-content;
+  max-width: 950px;
+  width: 100%;
+  background-color: black;
+  -webkit-mask: linear-gradient(to top, transparent, black 70px),
+    linear-gradient(to bottom, transparent, black 80px),
+    linear-gradient(to right, transparent, black 200px),
+    linear-gradient(to left, transparent, black 200px);
+  mask: linear-gradient(to top, transparent, black 70px),
+    linear-gradient(to bottom, transparent, black 80px),
+    linear-gradient(to right, transparent, black 200px),
+    linear-gradient(to left, transparent, black 200px);
+  -webkit-mask-composite: intersect;
+  mask-composite: intersect;
+  padding: 80px 0;
+}
+
+.main__book-cover {
+  max-width: 90%;
+  -webkit-mask: linear-gradient(to top, transparent, black 20px),
+    linear-gradient(to bottom, transparent, black 20px),
+    linear-gradient(to right, transparent, black 50px),
+    linear-gradient(to left, transparent, black 40px);
+  mask: linear-gradient(to top, transparent, black 20px),
+    linear-gradient(to bottom, transparent, black 20px),
+    linear-gradient(to right, transparent, black 50px),
+    linear-gradient(to left, transparent, black 40px);
+  -webkit-mask-composite: intersect;
+  mask-composite: intersect;
+}
+
+@media screen and (max-width: 1000px) {
+  .main {
+    background-color: transparent;
+    padding: 20px 0;
+    -webkit-mask: none;
+    mask: none;
+    -webkit-mask-composite: unset;
+    mask-composite: unset;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .main__book-cover {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .main__book-cover {
+    max-width: 100%;
+  }
+}
